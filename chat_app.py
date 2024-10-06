@@ -2,6 +2,7 @@ import socket
 import threading
 import tkinter as tk
 from tkinter import scrolledtext
+from datetime import datetime
 
 # Global variables for sockets
 server_socket = None
@@ -84,8 +85,9 @@ def receive_messages():
 # Function to update the text area safely
 def update_text_area(message):
     sender, text = message.split(': ', 1)  # Split sender and message text
-    formatted_message = f"{sender}:\n\t{text}\n"
-    
+    timestamp = datetime.now().strftime("%H:%M:%S")  # Get current time
+    formatted_message = f"[{timestamp}] {sender}:\n\t{text}\n"
+
     # Display the message in a formatted style
     text_area.config(state=tk.NORMAL)  # Allow editing the text area
     text_area.insert(tk.END, formatted_message)  # Add the new message
